@@ -8,10 +8,11 @@ public class INGCollege implements ActionListener
 {
     private JFrame f;
     private JPanel p1,p2;
-    private JLabel Academic,nonAcademic,Course,CourseName,Duration,Level,Credit,
+    private JLabel Academic,nonAcademic,Course,Duration,Level,Credit,
     Assessments,InstructorName,CourseLeader,StartDate,CompletionDate,
     nCourse,nCourseName,nDuration,nPrerequisite,nCourseLeader,nInstructorName,nStartDate,
     nCompletionDate,nExamDate;
+    
     
     private JTextField ID,CName,Time,Assignment,Instructor,Leader,Degree,Hours,
     SDate,CDate,
@@ -22,8 +23,8 @@ public class INGCollege implements ActionListener
     nAdd,nRegister,nRemove,nDisplay,nClear,PreviousPage;
     
     private ArrayList<Course>data=new ArrayList();
-    private AcademicCourse objAC;
-    private NonAcademicCourse objNAC;
+    private AcademicCourse AC;
+    private NonAcademicCourse NAC;
     
     public INGCollege()
     {
@@ -301,13 +302,13 @@ public class INGCollege implements ActionListener
     } 
   public void actionPerformed(ActionEvent A)
     {
-        if (e.getSource()==NextPage)
+        if (A.getSource()==NextPage)
         {
             p1.setVisible(false);
             p2.setVisible(true);
             f.add(p2);
         }
-            else if (e.getSource()==PreviousPage)
+            else if (A.getSource()==PreviousPage)
          {
           p1.setVisible(true);
           p2.setVisible(false);
@@ -315,15 +316,15 @@ public class INGCollege implements ActionListener
          }
             if(A.getSource()==Add)
             
-               String CourseID= "";
-               String CourseName= "";
+              // String CourseID= "";
+                String CourseName= "";
                 int Duration= 0;
                 int NumberOfAssessment= 0;
                 String Level= "";
                 String Credit="";
                 try
                 {
-                    CourseID= ID.getText();
+                   // CourseID= ID.getText();
                     CourseName= CName.getText();
                     Duration= Integer.parseInt(Time.getText());
                     NumberOfAssessment = Integer.parseInt(Assignment.getText());
@@ -340,7 +341,7 @@ public class INGCollege implements ActionListener
             }
             if (newAC= false)
             {
-                AC= new AcademicCourse(CourseID,Coursename,Duration,NumberOfAssessment,Level,Credit);
+                AC= new AcademicCourse(CourseID,CourseName,Duration,NumberOfAssessment,Level,Credit);
                 data.add(AC);
                 JOptionPane.showMessageDialog(f,"Academic Course is added.");
             }
@@ -367,11 +368,11 @@ public class INGCollege implements ActionListener
                 Duration= Integer.parseInt(nTime.getText());
                 Prerequisite= nRequisite.getText();
                 boolean newNAC = false;
-                for (course C:data)
+                for (Course C:data)
                 {
                     if(C.getCourseID().equals(CourseID))
                     {
-                        SameNAC = true;
+                        newNAC = true;
                     }
                 }
                 if (newNAC == false)
@@ -418,7 +419,7 @@ public class INGCollege implements ActionListener
                                  }
                                  else
                                  {
-                                     AC.Register(CourseLeader, LecturerName,Startdate,CompletionDate);
+                                     AC.Register(CourseLeader, LecturerName,StartDate,CompletionDate);
                                      JOptionPane.showMessageDialog(f,"The Academic Course is registered.");
                                  }
                              }
@@ -567,5 +568,3 @@ public class INGCollege implements ActionListener
     {
         new INGCollege();
     }
-}
-}
